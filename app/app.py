@@ -3,6 +3,10 @@ import psycopg2
 from pydantic import BaseModel
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file in project root
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 app = FastAPI()
 
