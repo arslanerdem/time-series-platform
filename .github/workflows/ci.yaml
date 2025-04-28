@@ -23,7 +23,7 @@ jobs:
       run: |
         echo "POSTGRES_PASSWORD=test_password" > .env
         echo "DB_PASSWORD=test_password" >> .env
-        echo "DB_HOST=timescaledb" >> .env
+        echo "DB_HOST=localhost" >> .env
         echo "DB_PORT=5432" >> .env
         echo "DB_NAME=timeseries" >> .env
         echo "DB_USER=postgres" >> .env
@@ -57,7 +57,7 @@ jobs:
         . venv/bin/activate
         pytest tests/test_api.py -v --log-cli-level=DEBUG
       env:
-        DB_HOST: timescaledb
+        DB_HOST: localhost
         DB_PASSWORD: test_password
 
     - name: Clean up
