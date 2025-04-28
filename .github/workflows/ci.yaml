@@ -28,6 +28,11 @@ jobs:
         echo "DB_NAME=timeseries" >> .env
         echo "DB_USER=postgres" >> .env
 
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
     - name: Set up Docker Compose
       run: |
         docker-compose up -d timescaledb
