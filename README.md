@@ -27,6 +27,9 @@ The services are orchestrated using **Docker Compose**, ensuring easy setup and 
 │   └── tests/             # Test suite for FastAPI endpoints
 │       ├── __init__.py
 │       └── test_api.py    # Tests for API endpoints
+├── .github/
+│   └── workflows/
+│       └── ci.yml         # GitHub Actions CI workflow
 ```
 
 - **`.env`**: Stores sensitive data like `POSTGRES_PASSWORD` and `DB_PASSWORD`. Not committed to Git (listed in `.gitignore`).
@@ -38,6 +41,7 @@ The services are orchestrated using **Docker Compose**, ensuring easy setup and 
   - `requirements.txt`: Lists Python packages (`fastapi`, `uvicorn`, `psycopg2-binary`, `pytest`, `httpx`, `python-dotenv`, `pytest-asyncio`).
   - `pytest.ini`: Configures `pytest` for async tests.
   - `tests/`: Contains `pytest` tests for API endpoints.
+- **`.github/workflows/ci.yml`**: GitHub Actions workflow to run tests automatically.
 
 ## Requirements
 
@@ -162,6 +166,20 @@ The project includes automated tests for the FastAPI endpoints using `pytest`, `
     pytest tests/test_api.py -v --log-cli-level=DEBUG
     ```
 
+## CI/CD
+
+The project uses **GitHub Actions** to automatically run tests on every push or pull request to the `main` branch. The workflow is defined in `.github/workflows/ci.yml` and performs the following:
+- Sets up a Python environment and creates a `.env` file with test credentials.
+- Starts the `timescaledb` service using Docker Compose.
+- Installs dependencies in a virtual environment.
+- Runs `pytest` tests against the FastAPI app, connecting to the Dockerized TimescaleDB.
+- Cleans up Docker resources after testing.
+
+To view test results:
+1. Go to the **Actions** tab on [https://github.com/arslanerdem/time-series-platform](https://github.com/arslanerdem/time-series-platform).
+2. Select the latest **CI** workflow run.
+3. Check for a green checkmark indicating passing tests or review logs for failures.
+
 ## Usage
 
 ### API Endpoints
@@ -279,6 +297,10 @@ docker exec my-timescaledb du -sh /var/lib/postgresql/data
     ```bash
     pytest tests/test_api.py -v --log-cli-level=DEBUG
     ```
+- **CI Failures**:
+  - Check the **Actions** tab on GitHub for detailed logs.
+  - Verify `ci.yml` syntax and `.env` configuration.
+  - Ensure TimescaleDB starts correctly in CI (`docker logs my-timescaledb`).
 - **Container Issues**:
   - Verify services:
     ```bash
