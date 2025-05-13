@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: timeseries
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "2432:2432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
@@ -25,13 +25,13 @@ services:
       dockerfile: Dockerfile
     container_name: my-fastapi
     ports:
-      - "8000:8000"
+      - "2100:2100"
     depends_on:
       timescaledb:
         condition: service_healthy
     environment:
       DB_HOST: timescaledb
-      DB_PORT: 5432
+      DB_PORT: 2432
       DB_NAME: timeseries
       DB_USER: postgres
       DB_PASSWORD: ${DB_PASSWORD}
