@@ -17,7 +17,7 @@ DB_CONFIG = {
     "user": os.getenv("DB_USER", "postgres"),
     "password": os.getenv("DB_PASSWORD"),
     "host": os.getenv("DB_HOST", "timescaledb"),
-    "port": os.getenv("DB_PORT", "5432")
+    "port": os.getenv("DB_PORT", "2432")
 }
 
 # Debug: Log environment variables (remove in production)
