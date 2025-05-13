@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     container_name: my-fastapi
     ports:
-      - "2100:2100"
+      - "2200:2200"
     depends_on:
       timescaledb:
         condition: service_healthy
